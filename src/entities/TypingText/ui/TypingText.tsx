@@ -1,30 +1,31 @@
 import { useEffect, useState } from "react";
 import Text from "../../../shared/ui/Text/ui/Text";
 import { useTextStore } from "../../../featurs/GenerateText/model/TextStore";
-import { GetTextFetch } from "../../../featurs/GenerateText/model/GetText";
 
 const TypingText = () => {
   const [activeSymbolId, SetActiveSymbolId] = useState(0);
-  const [error, SetError] = useState(false);
+  const [errorSymbol, SetErrorSymbol] = useState(false);
   const text = useTextStore((state) => state.text);
-  GetTextFetch();
+
   useEffect(() => {
+    console.log("b");
     const keyPressHandler = (event: KeyboardEvent) => {
-      console.log("d");
+      if (event.key == "Shift") return;
       if (event.key == text[activeSymbolId]) {
         SetActiveSymbolId(activeSymbolId + 1);
-        SetError(false);
-        document.removeEventListener("keypress", keyPressHandler);
+        SetErrorSymbol(false);
+        document.removeEventListener("keyup", keyPressHandler);
       } else {
-        SetError(true);
+        SetErrorSymbol(true);
       }
     };
 
-    document.addEventListener("keypress", keyPressHandler);
-  }, [activeSymbolId, text]);
+    document.addEventListener("keyup", keyPressHandler);
+  }, [activeSymbolId, errorSymbol, text]);
   return (
     <>
-      <Text text={text} activeSymbolId={activeSymbolId} error={error} />
+      <h1>TypingText</h1>
+      <Text text={text} activeSymbolId={activeSymbolId} error={errorSymbol} />
     </>
   );
 };
