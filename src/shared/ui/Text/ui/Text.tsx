@@ -1,11 +1,11 @@
-import style from "./TypingText.module.css";
+import style from "./Text.module.css";
 
-interface TypingTextProps {
+interface TextProps {
   text: string;
   activeSymbolId: number;
   error: boolean;
 }
-const TypingText = ({ text, activeSymbolId, error }: TypingTextProps) => {
+const Text = ({ text, activeSymbolId, error }: TextProps) => {
   return (
     <div>
       <p>
@@ -25,4 +25,4 @@ const TypingText = ({ text, activeSymbolId, error }: TypingTextProps) => {
   );
 };
 
-export default TypingText;
+export default Text;
