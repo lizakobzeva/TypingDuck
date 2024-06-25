@@ -7,13 +7,13 @@ function App() {
   const isLoading = useTextStore((state) => state.isLoading);
   const fetchText = useTextStore((state) => state.fetchText);
   useEffect(() => {
-    if (fetchText) fetchText();
+    if (fetchText && start) fetchText().then(() => setStart(false));
   }, [start]);
   return (
     <>
       <h1>TypingDuck</h1>
-      <button onClick={() => setStart(!start)}>Start</button>
-      {isLoading ? <p>Loading...</p> : <TypingText />}
+      <button onClick={() => setStart(true)}>Start</button>
+      {isLoading && start ? <p>Loading...</p> : <TypingText />}
     </>
   );
 }
